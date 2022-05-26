@@ -7,7 +7,7 @@ files = ['task_1', 'task_2', 'task_1_soln.py', 'task_2_soln.py']
 
 for i in range(3,26):
     # Directory
-    directory = "Day_" + str(i)
+    directory = "Day " + str(i)
     # Path
     path = os.path.join(parent_dir, directory)
     try: 
