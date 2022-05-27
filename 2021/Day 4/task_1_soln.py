@@ -35,22 +35,40 @@ board = [ [1,1,0,0,1],
           [1,1,0,0,1]  ]
 
 def check_horizontal(board):
-    return np.any(np.sum(board, axis=1) == 5)
+    return np.any(np.sum(board, axis=1) == -5)
 #print(check_horizontal(board))
 
 def check_vertical(board):
-    return np.any(np.sum(board, axis=0) == 5)
+    return np.any(np.sum(board, axis=0) == -5)
 #print(check_vertical(board))
-
-def update_boards(n, boards):
-    pass
 
 def play_bingo(numbers_drawn, boards):
     for n in numbers_drawn:
         for i, board in enumerate(boards):
-            
-            print(board)
-            break
-        break
+            X, Y = board.shape
+            for x in range(X):
+                for y in range(Y):
+                    if board[x, y] == n:
+                        board[x, y] = -1
+                        if check_horizontal(board):
+                            print("Winner found")
+                            return board, n
+                        elif(check_vertical(board)):
+                            print("Winner found")
+                            return board, n
 
-play_bingo(numbers_drawn, boards)
+winning_board, winning_number = play_bingo(numbers_drawn, boards)
+
+print(winning_board)
+
+def find_score(winning_board, number):
+    sum = 0
+    for row in winning_board:
+        for val in row:
+            if(val!=-1):
+                sum+=val
+    score = sum * number
+    print("Score ", score)
+    return score
+
+score = find_score(winning_board, winning_number)
